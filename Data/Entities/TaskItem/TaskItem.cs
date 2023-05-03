@@ -20,6 +20,6 @@ namespace KanbanAPI.Data.Entities
         public Guid ProjectId { get; set; }
         public Client Client { get; set; } = new Client();
         public Guid ClientId { get; set; }
-        public List<User> Asignees { get; set; } = new List<User>();
+        public List<KanbanUser> Asignees { get; set; } = new List<KanbanUser>();
     }
 }

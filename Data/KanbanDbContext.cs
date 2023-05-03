@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KanbanAPI.Data
 {
-    public class KanbanDbContext : IdentityDbContext<User>
+    public class KanbanDbContext : IdentityDbContext<KanbanUser>
     {
         public KanbanDbContext(DbContextOptions<KanbanDbContext> options) : base(options)
         {
@@ -17,6 +17,17 @@ namespace KanbanAPI.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<KanbanUser>(u =>
+            {
+                u.HasKey(u => u.Id);
+                u.ToTable("Users");
+            });
+            modelBuilder.Entity<KanbanUserLogin>(ul =>
+            {
+                ul.HasKey(u => u.UserId);
+                ul.ToTable("UserLogins");
+            });
+
             modelBuilder.Entity<Client>().HasKey(c => c.ClientId);
             modelBuilder.Entity<Client>().HasMany(c => c.Projects).WithOne(p => p.Client);
 

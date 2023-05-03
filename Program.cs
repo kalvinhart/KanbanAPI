@@ -1,5 +1,5 @@
 using KanbanAPI.Data;
-using KanbanAPI.Data.Entities;
+using KanbanAPI.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,13 +16,7 @@ builder.Services.AddDbContext<KanbanDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
 
-builder.Services.AddIdentityCore<User>(options =>
-{
-    options.User.RequireUniqueEmail = true;
-    options.Password.RequireUppercase = true;
-    options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = true;
-}).AddEntityFrameworkStores<KanbanDbContext>();
+ServiceExtensions.ConfigureIdentity(builder.Services);
 
 var app = builder.Build();
 

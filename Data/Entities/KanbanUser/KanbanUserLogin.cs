@@ -2,7 +2,7 @@
 
 namespace KanbanAPI.Data.Entities
 {
-    public class User : IdentityUser
+    public class KanbanUserLogin : IdentityUserLogin<string>
     {
     }
 }
