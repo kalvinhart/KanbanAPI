@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
+      <ProjectReference Include="..\KanbanAPI.Business\KanbanAPI.Business.csproj" />
     </ItemGroup>
 
 </Project>

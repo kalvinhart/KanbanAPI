@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI", "KanbanAPI\KanbanAPI.csproj", "{4D4D4466-BC5E-4641-BDB9-2DB043F98F3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI.Business", "KanbanAPI.Business\KanbanAPI.Business.csproj", "{D5C68028-A168-4FB4-BD93-5914E6088C53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI.DataAccess", "KanbanAPI.DataAccess\KanbanAPI.DataAccess.csproj", "{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{4D4D4466-BC5E-4641-BDB9-2DB043F98F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D4D4466-BC5E-4641-BDB9-2DB043F98F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D4D4466-BC5E-4641-BDB9-2DB043F98F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C68028-A168-4FB4-BD93-5914E6088C53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C68028-A168-4FB4-BD93-5914E6088C53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C68028-A168-4FB4-BD93-5914E6088C53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C68028-A168-4FB4-BD93-5914E6088C53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
