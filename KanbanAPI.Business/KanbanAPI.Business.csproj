@@ -11,4 +11,8 @@
       <ProjectReference Include="..\KanbanAPI.DataAccess\KanbanAPI.DataAccess.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Riok.Mapperly" Version="3.5.1" />
+    </ItemGroup>
+
 </Project>

@@ -19,4 +19,9 @@ public class BoardsRepository : GenericRepository<Board>, IBoardsRepository
 
         return query.FirstOrDefaultAsync(s => s.BoardId == boardId);
     }
+
+    public Task<bool> BoardExists(string name)
+    {
+        return _dbSet.AnyAsync(x => x.Name == name);
+    }
 }
