@@ -1,4 +1,6 @@
+using KanbanAPI.Business.Boards.Services;
 using KanbanAPI.DataAccess;
+using KanbanAPI.DataAccess.Shared.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ builder.Services.AddDbContext<KanbanDbContext>(
     {
         opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
+
+builder.Services.AddScoped<IBoardsService, BoardsService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
