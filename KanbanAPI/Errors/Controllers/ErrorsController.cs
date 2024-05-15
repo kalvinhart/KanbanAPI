@@ -8,6 +8,7 @@ namespace KanbanAPI.Errors.Controllers;
 public class ErrorsController : ControllerBase
 {
     [Route("")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public IActionResult Error()
     {
         Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
