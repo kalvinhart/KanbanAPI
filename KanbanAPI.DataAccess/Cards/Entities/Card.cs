@@ -11,6 +11,6 @@ public class Card
     public int Index { get; set; }
 
     public Guid ColumnId { get; set; }
-    public required Column Column { get; set; }
+    public Column Column { get; set; } = null!;
     public ICollection<Subtask> Subtasks { get; set; } = new List<Subtask>();
 }

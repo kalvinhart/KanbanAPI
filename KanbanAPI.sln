@@ -6,6 +6,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI.Business", "Kanba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI.DataAccess", "KanbanAPI.DataAccess\KanbanAPI.DataAccess.csproj", "{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI.Business.Tests", "KanbanAPI.Business.Tests\KanbanAPI.Business.Tests.csproj", "{91182BFF-000B-429F-8124-97995E514B74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI.DataAccess.Tests", "KanbanAPI.DataAccess.Tests\KanbanAPI.DataAccess.Tests.csproj", "{9ADE8BAB-DD4D-4453-A19E-1CDC61C347C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KanbanAPI.Tests", "KanbanAPI.Tests\KanbanAPI.Tests.csproj", "{419BCA18-FA80-49FB-A5CC-721063D34321}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C02E9CB-2EAA-4649-AF3C-64238F5D64E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91182BFF-000B-429F-8124-97995E514B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91182BFF-000B-429F-8124-97995E514B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91182BFF-000B-429F-8124-97995E514B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91182BFF-000B-429F-8124-97995E514B74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ADE8BAB-DD4D-4453-A19E-1CDC61C347C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ADE8BAB-DD4D-4453-A19E-1CDC61C347C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ADE8BAB-DD4D-4453-A19E-1CDC61C347C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ADE8BAB-DD4D-4453-A19E-1CDC61C347C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{419BCA18-FA80-49FB-A5CC-721063D34321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{419BCA18-FA80-49FB-A5CC-721063D34321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{419BCA18-FA80-49FB-A5CC-721063D34321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{419BCA18-FA80-49FB-A5CC-721063D34321}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

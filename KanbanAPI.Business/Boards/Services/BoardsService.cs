@@ -22,7 +22,14 @@ public class BoardsService : IBoardsService
 
     public async Task<List<BoardDto>> GetBoards()
     {
-        var boards = await _unitOfWork.BoardsRepository.GetAllAsync();
+        var boards = await _unitOfWork.BoardsRepository.GetAllAsync(new ContextGetParameters<Board>()
+        {
+            Includes = x => x
+                .Include(b => b.Columns)
+                    .ThenInclude(c => c.Cards)
+                        .ThenInclude(c => c.Subtasks),
+            DisableTracking = true
+        });
 
         return boards
             .Select(_mapper.ToBoardDto)

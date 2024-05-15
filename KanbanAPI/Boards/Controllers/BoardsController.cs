@@ -16,6 +16,7 @@ public class BoardsController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType<List<BoardDto>>(StatusCodes.Status200OK)]
     public async Task<ActionResult<List<BoardDto>>> GetBoards()
     {
         var boards = await _boardsService.GetBoards();
@@ -23,6 +24,7 @@ public class BoardsController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType<BoardDto>(StatusCodes.Status201Created)]
     public async Task<ActionResult<BoardDto>> CreateBoard(CreateBoardDto createBoardDto)
     {
         var board = await _boardsService.CreateBoard(createBoardDto);
@@ -30,13 +32,15 @@ public class BoardsController : ControllerBase
     }
 
     [HttpPut]
+    [ProducesResponseType<BoardDto>(StatusCodes.Status200OK)]
     public async Task<ActionResult<BoardDto>> UpdateBoard(UpdateBoardDto updateBoardDto)
     {
         var board = await _boardsService.UpdateBoard(updateBoardDto);
         return Ok(board);
     }
 
-    [HttpDelete("{boardId}")]
+    [HttpDelete("{boardId:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<ActionResult> DeleteBoard(Guid boardId)
     {
         await _boardsService.DeleteBoard(boardId);

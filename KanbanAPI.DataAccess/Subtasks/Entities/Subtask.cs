@@ -9,5 +9,5 @@ public class Subtask
     public bool IsCompleted { get; set; }
 
     public Guid CardId { get; set; }
-    public required Card Card { get; set; }
+    public Card Card { get; set; } = null!;
 }

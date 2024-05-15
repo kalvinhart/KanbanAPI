@@ -35,7 +35,7 @@ namespace KanbanAPI.DataAccess.Migrations
 
                     b.HasKey("BoardId");
 
-                    b.ToTable("Boards");
+                    b.ToTable("Boards", (string)null);
                 });
 
             modelBuilder.Entity("KanbanAPI.DataAccess.Cards.Entities.Card", b =>
@@ -64,7 +64,7 @@ namespace KanbanAPI.DataAccess.Migrations
 
                     b.HasIndex("ColumnId");
 
-                    b.ToTable("Cards");
+                    b.ToTable("Cards", (string)null);
                 });
 
             modelBuilder.Entity("KanbanAPI.DataAccess.Columns.Entities.Column", b =>
@@ -88,7 +88,7 @@ namespace KanbanAPI.DataAccess.Migrations
 
                     b.HasIndex("BoardId");
 
-                    b.ToTable("Columns");
+                    b.ToTable("Columns", (string)null);
                 });
 
             modelBuilder.Entity("KanbanAPI.DataAccess.Subtasks.Entities.Subtask", b =>
@@ -112,7 +112,7 @@ namespace KanbanAPI.DataAccess.Migrations
 
                     b.HasIndex("CardId");
 
-                    b.ToTable("Subtasks");
+                    b.ToTable("Subtasks", (string)null);
                 });
 
             modelBuilder.Entity("KanbanAPI.DataAccess.Cards.Entities.Card", b =>
