@@ -34,6 +34,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseExceptionHandler("/api/errors");
+
 app.UseAuthorization();
 
 app.MapControllers();
