@@ -47,6 +47,7 @@ public class BoardsControllerTests
         {
             Assert.That(result, Is.Not.Null);
             Assert.That(result!.Value, Has.Count.EqualTo(2));
+            Assert.That(result.Value, Is.EqualTo(boards));
         });
     }
 
@@ -97,10 +98,31 @@ public class BoardsControllerTests
     }
 
     [Test]
+    public async Task UpdateBoard_ShouldReturnNotFound()
+    {
+        // Arrange
+        var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1");
+
+        _boardsService
+            .Setup(x => x.UpdateBoard(updateBoardDto).Result)
+            .Returns((BoardDto?)null);
+
+        // Act
+        var actionResult = await _sut.UpdateBoard(updateBoardDto);
+
+        // Assert
+        Assert.That(actionResult.Result, Is.InstanceOf<NotFoundResult>());
+    }
+
+    [Test]
     public async Task DeleteBoard_ShouldReturnNoContent()
     {
         // Arrange
         var boardId = Guid.NewGuid();
+
+        _boardsService
+            .Setup(x => x.DeleteBoard(boardId).Result)
+            .Returns(true);
 
         // Act
         var actionResult = await _sut.DeleteBoard(boardId);
@@ -109,5 +131,22 @@ public class BoardsControllerTests
         // Assert
         Assert.That(result, Is.Not.Null);
         Assert.That(result!.StatusCode, Is.EqualTo(204));
+    }
+
+    [Test]
+    public async Task DeleteBoard_ShouldReturnNotFound()
+    {
+        // Arrange
+        var boardId = Guid.NewGuid();
+
+        _boardsService
+            .Setup(x => x.DeleteBoard(boardId).Result)
+            .Returns((bool?)null);
+
+        // Act
+        var actionResult = await _sut.DeleteBoard(boardId);
+
+        // Assert
+        Assert.That(actionResult, Is.InstanceOf<NotFoundResult>());
     }
 }

@@ -33,17 +33,20 @@ public class BoardsController : ControllerBase
 
     [HttpPut]
     [ProducesResponseType<BoardDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<BoardDto>> UpdateBoard(UpdateBoardDto updateBoardDto)
     {
         var board = await _boardsService.UpdateBoard(updateBoardDto);
-        return Ok(board);
+        return board is null ? NotFound() : Ok(board);
     }
 
     [HttpDelete("{boardId:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteBoard(Guid boardId)
     {
-        await _boardsService.DeleteBoard(boardId);
-        return NoContent();
+        var result = await _boardsService.DeleteBoard(boardId);
+        return result is null ? NotFound() : NoContent();
     }
 }

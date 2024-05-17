@@ -53,10 +53,10 @@ public class BoardsService : IBoardsService
         return await _unitOfWork.BoardsRepository.BoardExists(name);
     }
 
-    public async Task<BoardDto> UpdateBoard(UpdateBoardDto updateBoardDto)
+    public async Task<BoardDto?> UpdateBoard(UpdateBoardDto updateBoardDto)
     {
         var board = await _unitOfWork.BoardsRepository.GetByIdAsync(updateBoardDto.BoardId);
-        if (board is null) throw new InvalidOperationException("Board not found");
+        if (board is null) return null;
 
         board.Name = updateBoardDto.Name;
         await _unitOfWork.SaveChangesAsync();
@@ -64,7 +64,7 @@ public class BoardsService : IBoardsService
         return _mapper.ToBoardDto(board);
     }
 
-    public async Task DeleteBoard(Guid boardId)
+    public async Task<bool?> DeleteBoard(Guid boardId)
     {
         var board = await _unitOfWork.BoardsRepository.GetByIdAsync(boardId, new ContextGetParameters<Board>()
         {
@@ -72,12 +72,14 @@ public class BoardsService : IBoardsService
                 .Include(b => b.Columns)
                     .ThenInclude(c => c.Cards)
         });
-        if (board is null) throw new InvalidOperationException("Board not found");
+        if (board is null) return null;
 
         ValidateBoardForDeletion(board);
 
         _unitOfWork.BoardsRepository.Remove(board);
         await _unitOfWork.SaveChangesAsync();
+
+        return true;
     }
 
     private static void ValidateBoardForDeletion(Board board)

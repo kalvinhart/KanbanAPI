@@ -6,6 +6,6 @@ public interface IBoardsService
 {
     Task<List<BoardDto>> GetBoards();
     Task<BoardDto> CreateBoard(CreateBoardDto createBoardDto);
-    Task<BoardDto> UpdateBoard(UpdateBoardDto updateBoardDto);
-    Task DeleteBoard(Guid boardId);
+    Task<BoardDto?> UpdateBoard(UpdateBoardDto updateBoardDto);
+    Task<bool?> DeleteBoard(Guid boardId);
 }

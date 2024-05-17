@@ -120,7 +120,7 @@ public class BoardsServiceTests
     }
 
     [Test]
-    public void UpdateBoard_ShouldThrowInvalidOperationException_WhenBoardNotFound()
+    public async Task UpdateBoard_ShouldReturnNull_WhenBoardNotFound()
     {
         // Arrange
         var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1");
@@ -129,8 +129,11 @@ public class BoardsServiceTests
             .Setup(x => x.BoardsRepository.GetByIdAsync(It.IsAny<Guid>()).Result)
             .Returns<Board>(null);
 
-        // Act & Assert
-        Assert.ThrowsAsync<InvalidOperationException>(() => _sut.UpdateBoard(updateBoardDto));
+        // Act
+        var result = await _sut.UpdateBoard(updateBoardDto);
+
+        // Assert
+        Assert.That(result, Is.Null);
     }
 
     [Test]
@@ -150,14 +153,15 @@ public class BoardsServiceTests
             .Returns(board);
 
         // Act
-        await _sut.DeleteBoard(boardId);
+        var result = await _sut.DeleteBoard(boardId);
 
         // Assert
         _unitOfWork.Verify(x => x.BoardsRepository.Remove(board), Times.Once);
+        Assert.That(result, Is.True);
     }
 
     [Test]
-    public void DeleteBoard_ShouldThrowInvalidOperationException_WhenBoardNotFound()
+    public async Task DeleteBoard_ShouldReturnNull_WhenBoardNotFound()
     {
         // Arrange
         var boardId = Guid.NewGuid();
@@ -168,8 +172,10 @@ public class BoardsServiceTests
                 It.IsAny<ContextGetParameters<Board>>()).Result)
             .Returns<Board>(null);
 
-        // Act & Assert
-        Assert.ThrowsAsync<InvalidOperationException>(() => _sut.DeleteBoard(boardId));
+        // Act
+        var result = await _sut.DeleteBoard(boardId);
+
+        Assert.That(result, Is.Null);
     }
 
     [Test]
