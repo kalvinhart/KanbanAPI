@@ -36,7 +36,7 @@ public class BoardsController : ControllerBase
     [ProducesResponseType<BoardDto>(StatusCodes.Status201Created)]
     public async Task<ActionResult<BoardDto>> CreateBoard(CreateBoardDto createBoardDto)
     {
-        var command = new CreateBoardCommand(createBoardDto.Name);
+        var command = new CreateBoardCommand(createBoardDto.Name, createBoardDto.Columns);
         var board = await _sender.Send(command);
 
         return CreatedAtAction(

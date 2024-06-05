@@ -3,4 +3,4 @@ using MediatR;
 
 namespace KanbanAPI.Business.Boards.Commands.CreateBoard;
 
-public record CreateBoardCommand(string Name) : IRequest<BoardDto>;
+public record CreateBoardCommand(string Name, List<CreateColumnDto> Columns) : IRequest<BoardDto>;
