@@ -1,4 +1,5 @@
-﻿using KanbanAPI.Business.Boards.DTOs;
+﻿using KanbanAPI.Business.Boards.Commands.CreateBoard;
+using KanbanAPI.Business.Boards.DTOs;
 using KanbanAPI.DataAccess.Boards.Entities;
 using Riok.Mapperly.Abstractions;
 
@@ -8,5 +9,5 @@ namespace KanbanAPI.Business.Boards.Mapping;
 public partial class BoardMapper : IBoardMapper
 {
     public partial BoardDto ToBoardDto(Board board);
-    public partial Board ToBoard(CreateBoardDto createBoardDto);
+    public partial Board ToBoard(CreateBoardCommand createBoardDto);
 }

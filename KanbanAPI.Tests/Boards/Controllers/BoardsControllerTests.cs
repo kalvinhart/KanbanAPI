@@ -1,6 +1,11 @@
 ﻿using KanbanAPI.Boards.Controllers;
+using KanbanAPI.Business.Boards.Commands.CreateBoard;
+using KanbanAPI.Business.Boards.Commands.DeleteBoard;
+using KanbanAPI.Business.Boards.Commands.UpdateBoard;
 using KanbanAPI.Business.Boards.DTOs;
-using KanbanAPI.Business.Boards.Services;
+using KanbanAPI.Business.Boards.Mapping;
+using KanbanAPI.Business.Boards.Queries.GetAllBoards;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -9,19 +14,19 @@ namespace KanbanAPI.Tests.Boards.Controllers;
 [TestFixture]
 public class BoardsControllerTests
 {
-    private readonly Mock<IBoardsService> _boardsService;
+    private readonly Mock<ISender> _sender;
     private readonly BoardsController _sut;
 
     public BoardsControllerTests()
     {
-        _boardsService = new Mock<IBoardsService>();
-        _sut = new BoardsController(_boardsService.Object);
+        _sender = new Mock<ISender>();
+        _sut = new BoardsController(_sender.Object, new BoardMapper());
     }
 
     [SetUp]
     public void SetUp()
     {
-        _boardsService.Reset();
+        _sender.Reset();
     }
 
     [Test]
@@ -30,12 +35,12 @@ public class BoardsControllerTests
         // Arrange
         var boards = new List<BoardDto>
         {
-            new BoardDto(Guid.NewGuid(), "Board 1", []),
-            new BoardDto(Guid.NewGuid(), "Board 2", [])
+            new (Guid.NewGuid(), "Board 1", []),
+            new (Guid.NewGuid(), "Board 2", [])
         };
 
-        _boardsService
-            .Setup(x => x.GetBoards().Result)
+        _sender
+            .Setup(x => x.Send(It.IsAny<GetAllBoardsQuery>(), It.IsAny<CancellationToken>()).Result)
             .Returns(boards);
 
         // Act
@@ -58,8 +63,10 @@ public class BoardsControllerTests
         var createBoardDto = new CreateBoardDto("Board 1");
         var board = new BoardDto(Guid.NewGuid(), "Board 1", []);
 
-        _boardsService
-            .Setup(x => x.CreateBoard(createBoardDto).Result)
+        _sender
+            .Setup(x => x.Send(
+                It.IsAny<CreateBoardCommand>(),
+                It.IsAny<CancellationToken>()).Result)
             .Returns(board);
 
         // Act
@@ -81,8 +88,10 @@ public class BoardsControllerTests
         var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1");
         var board = new BoardDto(Guid.NewGuid(), "Board 1", []);
 
-        _boardsService
-            .Setup(x => x.UpdateBoard(updateBoardDto).Result)
+        _sender
+            .Setup(x => x.Send(
+                It.IsAny<UpdateBoardCommand>(),
+                It.IsAny<CancellationToken>()).Result)
             .Returns(board);
 
         // Act
@@ -103,8 +112,10 @@ public class BoardsControllerTests
         // Arrange
         var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1");
 
-        _boardsService
-            .Setup(x => x.UpdateBoard(updateBoardDto).Result)
+        _sender
+            .Setup(x => x.Send(
+                It.IsAny<UpdateBoardCommand>(),
+                It.IsAny<CancellationToken>()).Result)
             .Returns((BoardDto?)null);
 
         // Act
@@ -120,8 +131,10 @@ public class BoardsControllerTests
         // Arrange
         var boardId = Guid.NewGuid();
 
-        _boardsService
-            .Setup(x => x.DeleteBoard(boardId).Result)
+        _sender
+            .Setup(x => x.Send(
+                It.IsAny<DeleteBoardCommand>(),
+                It.IsAny<CancellationToken>()).Result)
             .Returns(true);
 
         // Act
@@ -139,8 +152,10 @@ public class BoardsControllerTests
         // Arrange
         var boardId = Guid.NewGuid();
 
-        _boardsService
-            .Setup(x => x.DeleteBoard(boardId).Result)
+        _sender
+            .Setup(x => x.Send(
+                It.IsAny<DeleteBoardCommand>(),
+                It.IsAny<CancellationToken>()).Result)
             .Returns((bool?)null);
 
         // Act

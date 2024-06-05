@@ -1,25 +1,34 @@
-﻿using KanbanAPI.Business.Boards.DTOs;
-using KanbanAPI.Business.Boards.Services;
+﻿using KanbanAPI.Business.Boards.Commands.CreateBoard;
+using KanbanAPI.Business.Boards.Commands.DeleteBoard;
+using KanbanAPI.Business.Boards.Commands.UpdateBoard;
+using KanbanAPI.Business.Boards.DTOs;
+using KanbanAPI.Business.Boards.Mapping;
+using KanbanAPI.Business.Boards.Queries.GetAllBoards;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KanbanAPI.Boards.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class BoardsController : ControllerBase
 {
-    private readonly IBoardsService _boardsService;
+    private readonly ISender _sender;
+    private readonly IBoardMapper _mapper;
 
-    public BoardsController(IBoardsService boardsService)
+    public BoardsController(
+        ISender sender,
+        IBoardMapper mapper)
     {
-        _boardsService = boardsService;
+        _sender = sender;
+        _mapper = mapper;
     }
 
     [HttpGet]
     [ProducesResponseType<List<BoardDto>>(StatusCodes.Status200OK)]
     public async Task<ActionResult<List<BoardDto>>> GetBoards()
     {
-        var boards = await _boardsService.GetBoards();
+        var boards = await _sender.Send(new GetAllBoardsQuery());
         return Ok(boards);
     }
 
@@ -27,8 +36,13 @@ public class BoardsController : ControllerBase
     [ProducesResponseType<BoardDto>(StatusCodes.Status201Created)]
     public async Task<ActionResult<BoardDto>> CreateBoard(CreateBoardDto createBoardDto)
     {
-        var board = await _boardsService.CreateBoard(createBoardDto);
-        return CreatedAtAction(nameof(GetBoards), new { boardId = board.BoardId }, board);
+        var command = new CreateBoardCommand(createBoardDto.Name);
+        var board = await _sender.Send(command);
+
+        return CreatedAtAction(
+            nameof(GetBoards),
+            new { boardId = board.BoardId },
+            board);
     }
 
     [HttpPut]
@@ -37,7 +51,9 @@ public class BoardsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<BoardDto>> UpdateBoard(UpdateBoardDto updateBoardDto)
     {
-        var board = await _boardsService.UpdateBoard(updateBoardDto);
+        var command = new UpdateBoardCommand(updateBoardDto.BoardId, updateBoardDto.Name);
+        var board = await _sender.Send(command);
+
         return board is null ? NotFound() : Ok(board);
     }
 
@@ -46,7 +62,9 @@ public class BoardsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult> DeleteBoard(Guid boardId)
     {
-        var result = await _boardsService.DeleteBoard(boardId);
+        var command = new DeleteBoardCommand(boardId);
+        var result = await _sender.Send(command);
+
         return result is null ? NotFound() : NoContent();
     }
 }

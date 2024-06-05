@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KanbanAPI.Errors.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class ErrorsController : ControllerBase
 {
     [Route("")]

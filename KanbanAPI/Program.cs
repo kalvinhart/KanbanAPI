@@ -1,4 +1,3 @@
-using KanbanAPI.Business.Boards.Services;
 using KanbanAPI.DataAccess;
 using KanbanAPI.DataAccess.Shared.UnitOfWork;
 using KanbanAPI.Extensions.Services;
@@ -13,7 +12,8 @@ builder.Services.AddDbContext<KanbanDbContext>(
         opts.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
 
-builder.Services.AddScoped<IBoardsService, BoardsService>();
+builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddMappers();
@@ -34,7 +34,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseExceptionHandler("/api/errors");
+app.UseExceptionHandler("/errors");
 
 app.UseAuthorization();
 
