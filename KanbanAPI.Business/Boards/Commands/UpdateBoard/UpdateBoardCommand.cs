@@ -3,4 +3,7 @@ using MediatR;
 
 namespace KanbanAPI.Business.Boards.Commands.UpdateBoard;
 
-public record UpdateBoardCommand(Guid BoardId, string Name) : IRequest<BoardDto?>;
+public record UpdateBoardCommand(
+    Guid BoardId,
+    string Name,
+    List<UpdateColumnDto> Columns) : IRequest<BoardDto?>;

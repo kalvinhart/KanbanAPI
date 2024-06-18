@@ -27,7 +27,7 @@ public class CreateBoardCommandTests
     public async Task CreateBoard_ShouldReturnBoardDto_WhenSuccessful()
     {
         // Arrange
-        var command = new CreateBoardCommand("Board 1");
+        var command = new CreateBoardCommand("Board 1", []);
 
         _unitOfWork
             .Setup(x => x.BoardsRepository.BoardExists(It.IsAny<string>()).Result)
@@ -44,7 +44,7 @@ public class CreateBoardCommandTests
     public void CreateBoard_ShouldThrowInvalidOperationException_WhenBoardExists()
     {
         // Arrange
-        var command = new CreateBoardCommand("Board 1");
+        var command = new CreateBoardCommand("Board 1", []);
 
         _unitOfWork
             .Setup(x => x.BoardsRepository.BoardExists(It.IsAny<string>()).Result)

@@ -51,7 +51,10 @@ public class BoardsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<BoardDto>> UpdateBoard(UpdateBoardDto updateBoardDto)
     {
-        var command = new UpdateBoardCommand(updateBoardDto.BoardId, updateBoardDto.Name);
+        var command = new UpdateBoardCommand(
+            updateBoardDto.BoardId,
+            updateBoardDto.Name,
+            updateBoardDto.Columns);
         var board = await _sender.Send(command);
 
         return board is null ? NotFound() : Ok(board);

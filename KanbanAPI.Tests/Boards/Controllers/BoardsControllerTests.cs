@@ -60,7 +60,7 @@ public class BoardsControllerTests
     public async Task CreateBoard_ShouldReturnCreatedBoard()
     {
         // Arrange
-        var createBoardDto = new CreateBoardDto("Board 1");
+        var createBoardDto = new CreateBoardDto("Board 1", []);
         var board = new BoardDto(Guid.NewGuid(), "Board 1", []);
 
         _sender
@@ -85,7 +85,7 @@ public class BoardsControllerTests
     public async Task UpdateBoard_ShouldReturnUpdatedBoard()
     {
         // Arrange
-        var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1");
+        var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1", []);
         var board = new BoardDto(Guid.NewGuid(), "Board 1", []);
 
         _sender
@@ -110,7 +110,7 @@ public class BoardsControllerTests
     public async Task UpdateBoard_ShouldReturnNotFound()
     {
         // Arrange
-        var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1");
+        var updateBoardDto = new UpdateBoardDto(Guid.NewGuid(), "Board 1", []);
 
         _sender
             .Setup(x => x.Send(
