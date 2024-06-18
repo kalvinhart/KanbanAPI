@@ -1,0 +1,30 @@
+﻿services:
+  kanban.api:
+    image: kanban.api
+    container_name: kanban.api
+    ports:
+      - "8080:8080"
+    build:
+      context: .
+      dockerfile: KanbanAPI/Dockerfile
+    depends_on:
+      - kanban.db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  kanban.db:
+    container_name: kanban.db
+    image: "mcr.microsoft.com/mssql/server"
+    user: root
+    environment:
+      MSSQL_SA_PASSWORD: "Test99999@"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - kanban-data:/var/opt/mssql/data
+      - kanban-log:/var/opt/mssql/log
+
+volumes:
+  kanban-data:
+  kanban-log:
