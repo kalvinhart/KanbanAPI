@@ -1,6 +1,7 @@
 using KanbanAPI;
 using KanbanAPI.Business;
 using KanbanAPI.DataAccess;
+using KanbanAPI.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
