@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace KanbanAPI.Boards.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("boards")]
 public class BoardsController : ControllerBase
 {
     private readonly ISender _sender;
